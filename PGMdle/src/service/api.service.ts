@@ -1,10 +1,10 @@
 import { HttpClient } from "@angular/common/http";
-import { CsPlayers } from "../../shared/Players/CsPlayers.interface"
+import { CsPlayers } from "../shared/Players/cs-players"
 import { Observable, map } from "rxjs";
 import { Injectable } from "@angular/core";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 
 export class ApiService {
