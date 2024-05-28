@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ApiService } from '../../service/api.service';
-import { CsPlayers } from '../../shared/Players/cs-players';
-
+import { CsPlayers } from '../shared/Players/cs-players';
+import { ApiService } from '../service/api.service';
 
 @Component({
   selector: 'app-csdle',
@@ -14,6 +13,8 @@ export class CsdleComponent implements OnInit {
   constructor(private apiService : ApiService){}
 
   ngOnInit() {
-    var listJoueur = this.apiService.getPlayers
+    this.apiService.getPlayers().subscribe((players: CsPlayers[]) => {
+      this.liste = players;
+    });
   }
 }

@@ -1,1 +1,12 @@
-<p>csdle works!</p>
+<div *ngIf="liste.length > 0; else noPlayers">
+    <ul>
+      <li *ngFor="let player of liste">
+        <h3>{{ player.name }}</h3>
+        <!-- Ajoutez d'autres propriétés de CsPlayers ici -->
+      </li>
+    </ul>
+</div>
+  
+<ng-template #noPlayers>
+    <p>Aucun joueur disponible.</p>
+</ng-template>

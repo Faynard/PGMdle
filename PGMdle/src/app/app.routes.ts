@@ -1,15 +1,8 @@
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
 import { CsdleComponent } from './csdle/csdle.component';
-import { NgModule } from '@angular/core';
 
-const routes: Routes = [{ path: 'csdle', component: CsdleComponent}];
-
-@NgModule({
-    imports: [
-        RouterModule.forRoot(routes)
-    ],
-    exports: [
-        RouterModule
-    ]
-})
-export class AppRouteModule{}
+export const routes: Routes = [
+    {path: '', component:CsdleComponent},
+    {path: 'csdle', component:CsdleComponent},
+];
