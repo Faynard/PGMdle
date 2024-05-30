@@ -1,13 +1,17 @@
-<p>csdle works!</p>
-<div *ngIf="liste.length > 0; else noPlayers">
-    <ul>
-      <li *ngFor="let player of liste">
-        <h3>{{ player.name }}</h3>
-        <!-- Ajoutez d'autres propriétés de CsPlayers ici -->
-      </li>
-    </ul>
+<div *ngIf="playerOfTheDay">
+  <h2>Joueur du jour</h2>
+  <p>Nom: {{ playerOfTheDay.name }}</p>
+  <!-- Ajoutez d'autres propriétés de playerOfTheDay ici -->
 </div>
-  
-<ng-template #noPlayers>
-    <p>Aucun joueur disponible.</p>
-</ng-template>
+
+<mat-form-field>
+  <input matInput placeholder="Rechercher un joueur..." [(ngModel)]="searchTerm" (input)="filterPlayers()">
+</mat-form-field>
+
+<mat-form-field *ngIf="filteredListe.length > 0">
+  <mat-select>
+    <mat-option *ngFor="let player of filteredListe" [value]="player">
+      {{ player.name }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

@@ -12,12 +12,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CsdleComponent } from './csdle/csdle.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     CsdleComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
