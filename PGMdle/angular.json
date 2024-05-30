@@ -3,11 +3,18 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "PGMdle": {
+    "Matrix": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "scss",
+          "standalone": false
+        },
+        "@schematics/angular:directive": {
+          "standalone": false
+        },
+        "@schematics/angular:pipe": {
+          "standalone": false
         }
       },
       "root": "",
@@ -17,7 +24,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/pgmdle",
+            "outputPath": "dist/matrix",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -62,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "PGMdle:build:production"
+              "buildTarget": "Matrix:build:production"
             },
             "development": {
-              "buildTarget": "PGMdle:build:development"
+              "buildTarget": "Matrix:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -73,7 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "PGMdle:build"
+            "buildTarget": "Matrix:build"
           }
         },
         "test": {
@@ -97,5 +104,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "58752eb9-451d-4001-a599-23a0cbf48a45"
   }
 }
