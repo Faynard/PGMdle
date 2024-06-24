@@ -29,6 +29,7 @@ export class CsdleComponent implements OnInit {
       this.playerOfTheDay = player;
     });
 
+    console.log()
     // Configure le filtrage de l'autocomplétion
     this.filteredListe = this.searchTerm.valueChanges.pipe(
       startWith(''),
