@@ -1,11 +1,11 @@
 export interface CsPlayers {
-    id: Number,
-    name: String,
-    players: String,
-    age: Number,
-    naionality: String,
-    role: String,
-    team: String,
-    active:boolean,
-    major: Number
+    id: number;
+    name: string;
+    players: string;
+    age: number;
+    nationality: string;
+    role: string;
+    team: string;
+    active: boolean;
+    major: number;
 }

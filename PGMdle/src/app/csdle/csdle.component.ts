@@ -1,9 +1,10 @@
+// csdle.component.ts
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Observable, of } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 import { ApiService } from '../services/api.service';
 import { CsPlayers } from '../interfaces/CsPlayers.interface';
-import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-csdle',
@@ -12,7 +13,7 @@ import { startWith, map } from 'rxjs/operators';
 })
 export class CsdleComponent implements OnInit {
   liste: CsPlayers[] = [];
-  filteredListe: Observable<CsPlayers[]>;
+  filteredListe: Observable<CsPlayers[]> = of([]);
   playerOfTheDay: CsPlayers | undefined;
   searchTerm = new FormControl('');
 
@@ -22,27 +23,26 @@ export class CsdleComponent implements OnInit {
     // Donne la liste des joueurs
     this.apiService.getPlayers().subscribe((players: CsPlayers[]) => {
       this.liste = players;
+      this.filteredListe = this.searchTerm.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filter(value || ''))
+      );
     });
 
     // Donne le joueur du jour
     this.apiService.getPlayerOfTheDay().subscribe((player: CsPlayers) => {
       this.playerOfTheDay = player;
     });
-
-    console.log()
-    // Configure le filtrage de l'autocomplétion
-    this.filteredListe = this.searchTerm.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value|undefined))
-    );
   }
 
   private _filter(value: string): CsPlayers[] {
+    console.log(value)
     const filterValue = value.toLowerCase();
     return this.liste.filter(player => player.name.toLowerCase().includes(filterValue));
   }
 
-  selectPlayer(player: CsPlayers) {
-    this.searchTerm.setValue(player.name.toString());
+  selectPlayer(playerName: string) {
+    
+    this.searchTerm.setValue(playerName);
   }
 }
