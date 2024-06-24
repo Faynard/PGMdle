@@ -13,6 +13,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CsdleComponent } from './csdle/csdle.component';
 import { HomeComponent } from './home/home.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { HomeComponent } from './home/home.component';
     MatFormFieldModule,
     BrowserModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatAutocompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

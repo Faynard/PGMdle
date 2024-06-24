@@ -1,61 +1,47 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { CsPlayers } from '../interfaces/CsPlayers.interface';
+import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-csdle',
   templateUrl: './csdle.component.html',
-  styleUrl: './csdle.component.scss'
+  styleUrls: ['./csdle.component.scss']
 })
-export class CsdleComponent {
-  liste: Array<CsPlayers> = [];
-  filteredListe: Array<CsPlayers> = [];
+export class CsdleComponent implements OnInit {
+  liste: CsPlayers[] = [];
+  filteredListe: Observable<CsPlayers[]>;
   playerOfTheDay: CsPlayers | undefined;
-  searchTerm: string = '';
+  searchTerm = new FormControl('');
 
   constructor(private apiService: ApiService) {}
 
   ngOnInit() {
-    //donne la liste des joueurs
+    // Donne la liste des joueurs
     this.apiService.getPlayers().subscribe((players: CsPlayers[]) => {
       this.liste = players;
-      this.filteredListe = players;
     });
-    //donne le joueur du jour
+
+    // Donne le joueur du jour
     this.apiService.getPlayerOfTheDay().subscribe((player: CsPlayers) => {
       this.playerOfTheDay = player;
     });
+
+    // Configure le filtrage de l'autocomplétion
+    this.filteredListe = this.searchTerm.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value|undefined))
+    );
   }
 
-  filterPlayers() {
-    if (this.searchTerm) {
-      this.filteredListe = this.liste.filter(player => 
-        player.name.toLowerCase().includes(this.searchTerm.toLowerCase())
-      );
-    } else {
-      this.filteredListe = this.liste;
-    }
+  private _filter(value: string): CsPlayers[] {
+    const filterValue = value.toLowerCase();
+    return this.liste.filter(player => player.name.toLowerCase().includes(filterValue));
   }
 
-  levenshteinDistance(a: string, b: string): number {
-    const matrix = Array.from({ length: a.length + 1 }, () => Array(b.length + 1).fill(0));
-
-    for (let i = 0; i <= a.length; i++) {
-      for (let j = 0; j <= b.length; j++) {
-        if (i === 0) matrix[i][j] = j;
-        else if (j === 0) matrix[i][j] = i;
-        else {
-          const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-          matrix[i][j] = Math.min(
-            matrix[i - 1][j] + 1, // deletion
-            matrix[i][j - 1] + 1, // insertion
-            matrix[i - 1][j - 1] + cost // substitution
-          );
-        }
-      }
-    }
-
-    return matrix[a.length][b.length];
+  selectPlayer(player: CsPlayers) {
+    this.searchTerm.setValue(player.name.toString());
   }
 }
