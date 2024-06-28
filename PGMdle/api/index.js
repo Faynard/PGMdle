@@ -32,7 +32,7 @@ async function run() {
 }
 run().catch(console.dir);
 
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(uri)
   .then(() => {
     app.listen(3000, () => console.log('Serveur démarré et connecté à MongoDB'));
   })

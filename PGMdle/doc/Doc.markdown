@@ -5,7 +5,7 @@
 
 Suivre la vidéo YT : https://www.youtube.com/watch?v=TRhDiekMrSk
 
-Pour la bd ne pas oublier d'intaler et importé mongoose
+Pour la bd ne pas oublier d'instaler et importé mongoose
 
 fair l'install npm pour lire les requête http
 
